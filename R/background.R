@@ -75,11 +75,19 @@ bkgrnd <- fluidRow(
         )
       ),
       tags$p("For additional support with this website, please contact Dr. Raphael Mazor (raphaelm@sccwrp.org) at the Southern California Coastal Water Research Project."),
-      tags$p("No information entered on this site is stored or retained by EPA or its contractors.")
-      
-      
-      
-      
+      tags$p("No information entered on this site is stored or retained by EPA or its contractors."),
+      tags$div(
+        HTML('
+        <p>
+             <strong>Note</strong>: 
+             In rare circumstances, this tool may incorrectly apply At least intermittent classifications to streams that could be ephemeral. 
+             If your data results in a classification of At least intermittent, please contact <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>. 
+             At this time, we do not recommend making management decisions based on At least intermittent classifications 
+             without first contacting <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>. 
+             Classifications of perennial, intermittent, and ephemeral are unaffected.
+        </p>
+        ')
+      )
       
     )
   )
