@@ -87,7 +87,7 @@ Beta_SDAM_WM<-function(
                                  mayfly_abundance<=15~3,
                                  T~4),
            SI_Fish = case_when(fishabund_score2>0~1,T~0),
-           SI_Algae = case_when(alglivedead_cover_score>1~1,T~0),
+           SI_Algae = case_when(alglivedead_cover_score>2~1,T~0),
            SI_Hydric=SI_Hydric
     )
   
@@ -95,15 +95,20 @@ Beta_SDAM_WM<-function(
   
   #Calculate May and October precipitation
   prism_set_dl_dir("data/prism")
+  
+  # Download prism files - if files exist in that directory, these lines of code should be commented out
+  # This function downloads the 800mM4 versions - Rafi says it needs to be kept at 800mM2, so this code should remain commented out
   # get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
   # get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
-  # 
+  
   
   #Suppress warnings here
   tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
   proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
   ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
   proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
   ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
   proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 
@@ -154,18 +159,29 @@ Beta_SDAM_WM<-function(
   
   xdf<- bind_cols(xdf, ClassProbs) %>%
     mutate(ALI = I + P,
+           
+           # 10/9/2023 - This classification framework is incorrect
+           # We have added a disclaimer in the meantime
+           # We will be changing this shortly
            Class = case_when(P>=.5~"Perennial",
                              I>=.5~"Intermittent",
                              E>=0.5~"Ephemeral",
-                             ALI >= 0.5 ~ "At least intermittent",
+                             P > E ~ "At least intermittent",
+                             E > P ~ "Less than perennial",
+                             P == E ~ "Need more information",
+                             # ALI >= 0.5 ~ "At least intermittent",
                              T~"Need more information"),
-           #Modify classification based on single indicators
-           SingleIndicator = case_when(SI_Hydric>0~1,
-                                       SI_Fish>0~1,
-                                       SI_Algae>0~1,
-                                       T~0),
-           Class_final = case_when(Class %in% c("Ephemeral","Need more information") & SingleIndicator==1~"At least intermittent",
+           
+           # Modify classification based on single indicators
+           SingleIndicator = case_when(
+                                      # SI_Hydric>0~1,
+                                      SI_Fish>0~1,
+                                      SI_Algae>0~1,
+                                      T~0),
+           Class_final = case_when(Class %in% c("Ephemeral","Need more information", "Less than perennial" ) & SingleIndicator==1~"At least intermittent",
                                    T~Class))
+  
+  # Return final classification
   xdf$Class_final
   
 }
@@ -226,13 +242,20 @@ snowdom <- function(lat, lon){
   
   # Get May and October Precipitation
   prism_set_dl_dir("data/prism")
-  #get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
-  #get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
+  
+  # Download prism files - if files exist in that directory, these lines of code should be commented out
+  # This function downloads the 800mM4 versions - Rafi says it needs to be kept at 800mM2, so this code should remain commented out
+  # get_prism_normals(type="tmax", resolution="800m", keepZip = F, annual = T)
+  # get_prism_normals(type="ppt", resolution="800m", keepZip = F, mon=c(5,10))
+  
   #Suppress warnings here
+  
   tmax_RS<-pd_stack("PRISM_tmax_30yr_normal_800mM2_annual_bil")
   proj4string(tmax_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
   ppt.m05_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_05_bil")
   proj4string(ppt.m05_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+  
   ppt.m10_RS<-pd_stack("PRISM_ppt_30yr_normal_800mM2_10_bil")
   proj4string(ppt.m10_RS)<-CRS("+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 
@@ -306,19 +329,31 @@ snowdom <- function(lat, lon){
     
     xdf <- bind_cols(xdf, ClassProbs) %>%
       mutate(ALI = I + P,
-             Class = case_when(P>=.5~"Perennial",
-                               I>=.5~"Intermittent",
-                               E>=0.5~"Ephemeral",
-                               ALI >= 0.5 ~ "At least intermittent",
-                               T~"Need more information"),
-             #Modify classification based on single indicators
-             SingleIndicator = case_when(SI_Hydric>0~1,
-                                         SI_Fish>0~1,
-                                         SI_Algae>0~1,
-                                         T~0),
-             Class_final = case_when(Class %in% c("Ephemeral","Need more information") & SingleIndicator==1~"At least intermittent",
-                                     T~Class))
+              # 10/9/2023 - This classification framework is incorrect
+           # We have added a disclaimer in the meantime
+           # We will be changing this shortly
+           Class = case_when(P>=.5~"Perennial",
+                             I>=.5~"Intermittent",
+                             E>=0.5~"Ephemeral",
+                             P > E ~ "At least intermittent",
+                             E > P ~ "Less than perennial",
+                             P == E ~ "Need more information",
+                             # ALI >= 0.5 ~ "At least intermittent",
+                             T~"Need more information"),
+           
+           # Modify classification based on single indicators
+           SingleIndicator = case_when(
+                                      # SI_Hydric>0~1,
+                                      SI_Fish>0~1,
+                                      SI_Algae>0~1,
+                                      T~0),
+           Class_final = case_when(Class %in% c("Ephemeral","Need more information", "Less than perennial" ) & SingleIndicator==1~"At least intermittent",
+                                   T~Class))
     
+           
+  
+
+
     msg <- paste0(
       "<h5>",
       "<p>This reach is <strong>{sno_inf}</strong></p><br>",

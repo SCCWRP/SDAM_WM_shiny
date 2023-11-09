@@ -31,7 +31,7 @@ ui <- fluidPage(
         "Web application for the Beta Streamflow Duration Assessment Method for Western Mountain Region (Beta SDAM WM)
         ")
       ),
-      h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.0.1</a> Release date: Nov 15 2021 </p>")),
+      h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.1</a> Release date: Nov 16 2023 </p>")),
       img(src="wmtitle1.png"),
       img(src="wmtitle
 2.png"),
@@ -966,8 +966,12 @@ server <- function(input, output, session) {
     session$userData$user_DifferencesInVegetation_score <- input$user_DifferencesInVegetation_score
     session$userData$user_alglivedead_cover_score <- input$user_alglivedead_cover_score
     
+    finalClassification <- classify()
     
-    HTML(glue::glue("<h5>This reach is classified as: <strong>{classify()}</strong></h5>"))})
+    HTML(
+      glue::glue("<p><h5>This reach is classified as: <strong>{finalClassification}</strong></h5></p>")
+    )
+  })
     
       
   

@@ -79,12 +79,11 @@ bkgrnd <- fluidRow(
       tags$div(
         HTML('
         <p>
-             <strong>Note</strong>: 
-             In rare circumstances, this tool may incorrectly apply At least intermittent classifications to streams that could be ephemeral. 
-             If your data results in a classification of At least intermittent, please contact <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>. 
-             At this time, we do not recommend making management decisions based on At least intermittent classifications 
-             without first contacting <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>. 
-             Classifications of perennial, intermittent, and ephemeral are unaffected.
+            On November 16, 2023, this application was updated to correct errors in how <em>At least intermittent</em> or <em>Need more information</em> classifications were assigned. 
+            If you used this application prior to November 16, 2023 (app version 1.0), please rerun your data with the updated version (version 1.1). 
+            For more information about this update, 
+            please see <a href=https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains#How%20was>https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains#How%20was</a>
+            or contact <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>.
         </p>
         ')
       )

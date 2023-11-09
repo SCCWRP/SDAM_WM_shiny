@@ -5,5 +5,5 @@ account: sccwrp
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4609140
-bundleId: 7782185
+bundleId: 7782548
 url: https://sccwrp.shinyapps.io/beta_sdam_wm/
