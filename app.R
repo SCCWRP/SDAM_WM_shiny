@@ -934,7 +934,14 @@ server <- function(input, output, session) {
   
   # classification
   classify <- eventReactive(input$runmodel, {
-    Beta_SDAM_WM(
+    # Display modal with loader
+    showModal(modalDialog(
+      title = "Processing",
+      "Running Model",
+      easyClose = FALSE,
+      footer = NULL
+    ))
+    ret <- Beta_SDAM_WM(
       user_model_choice=input$paramchoice,
       user_lat=input$lat, 
       user_lon=input$lon,
@@ -954,6 +961,11 @@ server <- function(input, output, session) {
       user_BankWidthMean=input$user_BankWidthMean,
       user_Sinuosity_score=input$user_Sinuosity_score
     )
+    removeModal()
+
+    # return model output
+    ret
+    
   })
   
   output$final_class <- renderUI({
