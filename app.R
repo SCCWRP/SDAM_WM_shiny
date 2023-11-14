@@ -853,8 +853,18 @@ server <- function(input, output, session) {
   sno <- eventReactive(
     input$snobutton, 
     {
-      snowdom(input$lat, input$lon)
-    
+      # Display modal with loader
+      showModal(modalDialog(
+        title = "Processing",
+        "Assessing Snow Influence",
+        easyClose = FALSE,
+        footer = NULL
+      ))
+      ret <- snowdom(input$lat, input$lon)
+      removeModal()
+
+      ret
+
     }
   )
   
