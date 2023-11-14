@@ -942,8 +942,7 @@ server <- function(input, output, session) {
       ),
       user_DifferencesInVegetation_score=input$user_DifferencesInVegetation_score,
       user_BankWidthMean=input$user_BankWidthMean,
-      user_Sinuosity_score=input$user_Sinuosity_score,
-      user_hydric=input$user_hydric
+      user_Sinuosity_score=input$user_Sinuosity_score
     )
   })
   

@@ -35,8 +35,77 @@ snowp_raster<-raster::raster('data/shapefiles/SnowPersistence/mod10a2_sci_AVG_v2
 Beta_SDAM_WM<-function(
       user_model_choice='sno',
       user_lat=0, user_lon=0, user_TotalAbundance=0, user_perennial_abundance=0, user_perennial_taxa=0, user_mayfly_abundance=0, user_fishabund_score2=0,
-      user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=0.5 , user_Sinuosity_score=0, user_hydric=0
+      user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=0.5 , user_Sinuosity_score=0
 ){
+
+  print('user_model_choice')
+  print(user_model_choice)
+  print('user_lat')
+  print(user_lat)
+  print('user_lon')
+  print(user_lon)
+  print('user_TotalAbundance')
+  print(user_TotalAbundance)
+  print('user_perennial_abundance')
+  print(user_perennial_abundance)
+  print('user_perennial_taxa')
+  print(user_perennial_taxa)
+  print('user_mayfly_abundance')
+  print(user_mayfly_abundance)
+  print('user_fishabund_score2')
+  print(user_fishabund_score2)
+  print('user_alglivedead_cover_score')
+  print(user_alglivedead_cover_score)
+  print('user_DifferencesInVegetation_score')
+  print(user_DifferencesInVegetation_score)
+  print('user_BankWidthMean')
+  print(user_BankWidthMean)
+  print('user_Sinuosity_score')
+  print(user_Sinuosity_score)
+  
+  
+  
+  
+  user_lat <- as.numeric(user_lat)
+  user_lon <- as.numeric(user_lon)
+  user_TotalAbundance <- as.numeric(user_TotalAbundance)
+  user_perennial_abundance <- as.numeric(user_perennial_abundance)
+  user_perennial_taxa <- as.numeric(user_perennial_taxa)
+  user_mayfly_abundance <- as.numeric(user_mayfly_abundance)
+  user_fishabund_score2 <- as.numeric(user_fishabund_score2)
+  user_alglivedead_cover_score <- as.numeric(user_alglivedead_cover_score)
+  user_DifferencesInVegetation_score <- as.numeric(user_DifferencesInVegetation_score)
+  user_BankWidthMean <- as.numeric(user_BankWidthMean)
+  user_Sinuosity_score <- as.numeric(user_Sinuosity_score)
+
+
+
+  print('user_model_choice')
+  print(user_model_choice)
+  print('user_lat')
+  print(user_lat)
+  print('user_lon')
+  print(user_lon)
+  print('user_TotalAbundance')
+  print(user_TotalAbundance)
+  print('user_perennial_abundance')
+  print(user_perennial_abundance)
+  print('user_perennial_taxa')
+  print(user_perennial_taxa)
+  print('user_mayfly_abundance')
+  print(user_mayfly_abundance)
+  print('user_fishabund_score2')
+  print(user_fishabund_score2)
+  print('user_alglivedead_cover_score')
+  print(user_alglivedead_cover_score)
+  print('user_DifferencesInVegetation_score')
+  print(user_DifferencesInVegetation_score)
+  print('user_BankWidthMean')
+  print(user_BankWidthMean)
+  print('user_Sinuosity_score')
+  print(user_Sinuosity_score)
+
+
   #Add a check to see if site is in WM area. If in PNW area or AW area (or GP, or NESE?), return with URL to appropriate resources.
   #If outside all possible regions, return "Site is outside region where the EPA has developed streamflow duration assessment methods.
   
@@ -58,8 +127,7 @@ Beta_SDAM_WM<-function(
                   alglivedead_cover_score=ifelse(is.null(user_alglivedead_cover_score), as.double(0),as.double(user_alglivedead_cover_score)),
                   DifferencesInVegetation_score=ifelse(is.null(user_DifferencesInVegetation_score), 0,user_DifferencesInVegetation_score),
                   BankWidthMean=ifelse(is.null(user_BankWidthMean), 0.5 ,user_BankWidthMean),
-                  Sinuosity_score=ifelse(is.null(user_Sinuosity_score), 0,user_Sinuosity_score),
-                  SI_Hydric=ifelse(is.null(user_hydric), 0,user_hydric)
+                  Sinuosity_score=ifelse(is.null(user_Sinuosity_score), 0,user_Sinuosity_score)
   ) 
   
   
@@ -87,8 +155,7 @@ Beta_SDAM_WM<-function(
                                  mayfly_abundance<=15~3,
                                  T~4),
            SI_Fish = case_when(fishabund_score2>0~1,T~0),
-           SI_Algae = case_when(alglivedead_cover_score>2~1,T~0),
-           SI_Hydric=SI_Hydric
+           SI_Algae = case_when(alglivedead_cover_score>2~1,T~0)
     )
   
 
@@ -174,13 +241,43 @@ Beta_SDAM_WM<-function(
            
            # Modify classification based on single indicators
            SingleIndicator = case_when(
-                                      # SI_Hydric>0~1,
                                       SI_Fish>0~1,
                                       SI_Algae>0~1,
                                       T~0),
            Class_final = case_when(Class %in% c("Ephemeral","Need more information", "Less than perennial" ) & SingleIndicator==1~"At least intermittent",
                                    T~Class))
   
+  print('user_model_choice')
+  print(user_model_choice)
+  print('user_lat')
+  print(user_lat)
+  print('user_lon')
+  print(user_lon)
+  print('user_TotalAbundance')
+  print(user_TotalAbundance)
+  print('user_perennial_abundance')
+  print(user_perennial_abundance)
+  print('user_perennial_taxa')
+  print(user_perennial_taxa)
+  print('user_mayfly_abundance')
+  print(user_mayfly_abundance)
+  print('user_fishabund_score2')
+  print(user_fishabund_score2)
+  print('user_alglivedead_cover_score')
+  print(user_alglivedead_cover_score)
+  print('user_DifferencesInVegetation_score')
+  print(user_DifferencesInVegetation_score)
+  print('user_BankWidthMean')
+  print(user_BankWidthMean)
+  print('user_Sinuosity_score')
+  print(user_Sinuosity_score)
+
+  print("xdf$Class_final")
+  print(xdf$Class_final)
+  
+  print("xdf")
+  print(xdf)
+
   # Return final classification
   xdf$Class_final
   
@@ -307,7 +404,6 @@ snowdom <- function(lat, lon){
         DifferencesInVegetation_score=0,
         BankWidthMean=0,
         Sinuosity_score=0,
-        SI_Hydric=0,
         PerennialTaxa_cat = 0,
         TotalAbundance_cat = 0,
         PerennialAbundance_cat = 0,
@@ -343,7 +439,6 @@ snowdom <- function(lat, lon){
            
            # Modify classification based on single indicators
            SingleIndicator = case_when(
-                                      # SI_Hydric>0~1,
                                       SI_Fish>0~1,
                                       SI_Algae>0~1,
                                       T~0),
@@ -393,3 +488,10 @@ snowdom <- function(lat, lon){
   }
   
 }
+
+
+Beta_SDAM_WM(
+      user_model_choice='sno',
+      user_lat=47.5, user_lon=-114, user_TotalAbundance=25, user_perennial_abundance=3, user_perennial_taxa=2, user_mayfly_abundance=0, user_fishabund_score2=0,
+      user_alglivedead_cover_score=0, user_DifferencesInVegetation_score=0, user_BankWidthMean=4, user_Sinuosity_score=3
+)
