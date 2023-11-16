@@ -79,11 +79,7 @@ bkgrnd <- fluidRow(
       tags$div(
         HTML('
         <p>
-            On November 16, 2023, this application was updated to correct errors in how <em>At least intermittent</em> or <em>Need more information</em> classifications were assigned. 
-            If you used this application prior to November 16, 2023 (app version 1.0), please rerun your data with the updated version (version 1.1). 
-            For more information about this update, 
-            please see <a href=https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains#How%20was>https://www.epa.gov/streamflow-duration-assessment/beta-streamflow-duration-assessment-method-western-mountains#How%20was</a>
-            or contact <a href=mailto:streamflow-duration-assessment@epa.gov>streamflow-duration-assessment@epa.gov</a>.
+            <strong>Note:</strong> Prior to version 1.1 released on November 16, 2023, the beta SDAM for the WM version 1.0 incorrectly applied the "At least intermittent" classifications to some streams that should have been a "ephemeral", "less than perennial", or "needs more information" classification. If your data resulted in a classification of "At least intermittent" using version 1.0 please check your classification using version 1.1. Classifications of "perennial", "intermittent", and "ephemeral" using version 1.0 are unaffected.
         </p>
         ')
       )

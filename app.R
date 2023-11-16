@@ -31,7 +31,7 @@ ui <- fluidPage(
         "Web application for the Beta Streamflow Duration Assessment Method for Western Mountain Region (Beta SDAM WM)
         ")
       ),
-      h4(HTML("<p>Version <a href=\"https://github.com/SCCWRP/beta_sdam_wm\">1.1</a> Release date: Nov 16 2023 </p>")),
+      h4(HTML("<p>Version <a href=https://github.com/SCCWRP/beta_sdam_wm target=_blank>1.1</a> Release date: Nov 16 2023 </p>")),
       img(src="wmtitle1.png"),
       img(src="wmtitle
 2.png"),
@@ -53,6 +53,9 @@ ui <- fluidPage(
         tabPanel(
           "Enter Data", 
           br(),
+          fluidRow(column(12, 
+          div(HTML('<p style="color:#e32431;"><em>This is an analysis tool and does not store data. After 60 minutes the tool will timeout and all data will have to be re-entered.</em></p>') ))),
+
           fluidRow(column(12, h4("Step 1: Enter coordinates"), 
           div('Enter coordinates in decimal degrees to assess snow influence and calculate geospatial indicator metrics.'))),
           
